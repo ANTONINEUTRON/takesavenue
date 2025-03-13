@@ -48,11 +48,22 @@ class $AssetsLogoGen {
   List<AssetGenImage> get values => [appIcon, appIconNobg];
 }
 
+class $AssetsVidsGen {
+  const $AssetsVidsGen();
+
+  /// File path: assets/vids/test.mp4
+  String get test => 'assets/vids/test.mp4';
+
+  /// List of all assets
+  List<String> get values => [test];
+}
+
 class Assets {
   const Assets._();
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsLogoGen logo = $AssetsLogoGen();
+  static const $AssetsVidsGen vids = $AssetsVidsGen();
 }
 
 class AssetGenImage {

@@ -10,5 +10,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: BantersRoute.page),
     AutoRoute(page: AddBanterRoute.page),
     AutoRoute(page: SettingsRoute.page),
+    AutoRoute(page: ViewItemRoute.page),
   ];
 }

@@ -5,7 +5,9 @@ import 'package:takesavenue/core/routes.gr.dart';
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(page: HomeRoute.page, initial: true),
+    AutoRoute(page: HomeRoute.page),
+    AutoRoute(page: SignInRoute.page, initial: true),
+    AutoRoute(page: SignUpRoute.page),
     AutoRoute(page: ProfileRoute.page),
     AutoRoute(page: BantersRoute.page),
     AutoRoute(page: AddBanterRoute.page),

@@ -18,6 +18,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/add.svg
   SvgGenImage get add => const SvgGenImage('assets/icons/add.svg');
 
+  /// File path: assets/icons/google.svg
+  SvgGenImage get google => const SvgGenImage('assets/icons/google.svg');
+
   /// File path: assets/icons/lists.svg
   SvgGenImage get lists => const SvgGenImage('assets/icons/lists.svg');
 
@@ -31,7 +34,7 @@ class $AssetsIconsGen {
   SvgGenImage get wallet => const SvgGenImage('assets/icons/wallet.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [add, lists, love, profile, wallet];
+  List<SvgGenImage> get values => [add, google, lists, love, profile, wallet];
 }
 
 class $AssetsLogoGen {

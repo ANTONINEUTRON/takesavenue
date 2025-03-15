@@ -1,12 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:takesavenue/core/routes.dart';
+import 'package:takesavenue/features/auth/cubits/auth_cubits.dart';
 import 'package:takesavenue/features/home/cubits/home_cubit.dart';
+import 'package:takesavenue/firebase_options.dart';
 import 'package:takesavenue/utils/app_constants.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
@@ -24,6 +31,7 @@ class MyApp extends StatelessWidget {
       providers: [
         // BlocProvider(create: (context) => AppCubit()),
         BlocProvider(create: (context) => HomeCubit()),
+        BlocProvider(create: (context) => AuthCubits()),
       ],
       child: MaterialApp.router(
         title: AppConstants.appName,

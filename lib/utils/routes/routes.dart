@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:takesavenue/core/routes.gr.dart';
+import 'package:takesavenue/utils/routes/routes.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen|Page,Route')
 class AppRouter extends RootStackRouter {

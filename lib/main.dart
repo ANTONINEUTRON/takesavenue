@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:takesavenue/core/routes.dart';
+import 'package:takesavenue/utils/routes/routes.dart';
 import 'package:takesavenue/features/auth/cubits/auth_cubits.dart';
 import 'package:takesavenue/features/home/cubits/home_cubit.dart';
 import 'package:takesavenue/firebase_options.dart';
 import 'package:takesavenue/utils/app_constants.dart';
+import 'package:takesavenue/utils/service/localstorage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await LocalStorage.init();
 
   runApp(const MyApp());
 }

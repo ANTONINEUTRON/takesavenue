@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:takesavenue/models/user.dart';
+import 'package:takesavenue/utils/models/user.dart';
 
 class AuthState extends Equatable {
   const AuthState({this.isLoading = false, this.errorMessage = '', this.user,});

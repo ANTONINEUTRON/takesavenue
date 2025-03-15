@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:takesavenue/models/user.dart';
+import 'package:takesavenue/utils/models/user.dart';
 import 'package:takesavenue/utils/app_constants.dart';
 
 class AuthRepository {
@@ -20,7 +20,7 @@ class AuthRepository {
 
     try {
       var response = await dio.post(AppConstants.userUrl, data: userData);
-      print((response.data as Map<String, dynamic>)["user"]);
+      
       var mapOfUser = (response.data as Map<String, dynamic>)["user"];
       return User.fromJson(mapOfUser);
     } catch (e) {

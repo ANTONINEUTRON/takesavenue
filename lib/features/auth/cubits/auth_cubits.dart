@@ -3,10 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:takesavenue/core/routes.gr.dart';
+import 'package:takesavenue/utils/routes/routes.gr.dart';
 import 'package:takesavenue/features/auth/cubits/auth_state.dart';
 import 'package:takesavenue/features/auth/repository/auth_repository.dart';
-import 'package:takesavenue/models/user.dart' as user_model;
+import 'package:takesavenue/utils/models/user.dart' as user_model;
+import 'package:takesavenue/utils/service/localstorage.dart';
 import 'package:takesavenue/utils/widgets/show_message.dart';
 
 class AuthCubits extends Cubit<AuthState> {
@@ -14,6 +15,7 @@ class AuthCubits extends Cubit<AuthState> {
 
   var firebaseAuth = FirebaseAuth.instance;
   var authRepository = AuthRepository();
+  final userKey = "User";
 
   void signIn(
     BuildContext context, {
@@ -27,7 +29,11 @@ class AuthCubits extends Cubit<AuthState> {
         password: password,
       );
 
-      await authRepository.getUserRecord(id: credential.user!.uid);
+      var user = await authRepository.getUserRecord(id: credential.user!.uid);
+
+      emit(state.copyWith(user: user));
+      appStorage.setObject(userKey, user.toJson());
+
       context.router.replaceAll([HomeRoute()]);
     } catch (e) {
       emit(state.copyWith(errorMessage: e.toString()));
@@ -54,7 +60,7 @@ class AuthCubits extends Cubit<AuthState> {
         // save credential to backend with username
         // var verificationId = await credential.user!.getIdToken();
 
-         user_model.User user = await authRepository.createUserRecord(
+        user_model.User user = await authRepository.createUserRecord(
           user: user_model.User(
             id: credential.user!.uid,
             email: email,
@@ -63,6 +69,8 @@ class AuthCubits extends Cubit<AuthState> {
         );
 
         emit(state.copyWith(user: user));
+
+        appStorage.setObject(userKey, user.toJson());
 
         context.router.replaceAll([HomeRoute()]);
       }
@@ -101,7 +109,13 @@ class AuthCubits extends Cubit<AuthState> {
   }
 
   void signOut(BuildContext context) async {
-    emit(state.copyWith(isLoading: true));
+    appStorage.removeObject(userKey);
+
+    firebaseAuth.signOut();
+
+    context.router.replaceAll([SignInRoute()]);
+
+    emit(AuthState(isLoading: true));
     try {
       await firebaseAuth.signOut();
     } catch (e) {
@@ -121,6 +135,25 @@ class AuthCubits extends Cubit<AuthState> {
         children: [Text('Password reset email has been sent to $email')],
       );
       context.router.pop();
+    } catch (e) {
+      emit(state.copyWith(errorMessage: e.toString()));
+      showMessage(context, e.toString());
+    }
+    emit(state.copyWith(isLoading: false));
+  }
+
+  void checkUserSignedIn(BuildContext context) async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      var user = appStorage.getObject(
+        userKey,
+        (json) => user_model.User.fromJson(json),
+      );
+
+      if (user != null && firebaseAuth.currentUser != null) {
+        emit(state.copyWith(user: user));
+        context.router.replaceAll([HomeRoute()]);
+      }
     } catch (e) {
       emit(state.copyWith(errorMessage: e.toString()));
       showMessage(context, e.toString());

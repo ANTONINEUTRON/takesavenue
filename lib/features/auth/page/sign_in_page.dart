@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:takesavenue/core/routes.gr.dart';
+import 'package:takesavenue/utils/routes/routes.gr.dart';
 import 'package:takesavenue/features/auth/cubits/auth_cubits.dart';
 import 'package:takesavenue/gen/assets.gen.dart';
 
@@ -19,7 +19,12 @@ class _SignInPageState extends State<SignInPage> {
   final _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
   bool _isLoading = false;
+@override
+  void initState() {
+    super.initState();
 
+    context.read<AuthCubits>().checkUserSignedIn(context);
+  }
   @override
   void dispose() {
     _emailController.dispose();
@@ -30,6 +35,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     var cubit = context.watch<AuthCubits>();
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(

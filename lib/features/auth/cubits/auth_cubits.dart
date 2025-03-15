@@ -22,10 +22,12 @@ class AuthCubits extends Cubit<AuthState> {
   }) async {
     emit(state.copyWith(isLoading: true));
     try {
-      await firebaseAuth.signInWithEmailAndPassword(
+      var credential = await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      await authRepository.getUserRecord(id: credential.user!.uid);
       context.router.replaceAll([HomeRoute()]);
     } catch (e) {
       emit(state.copyWith(errorMessage: e.toString()));

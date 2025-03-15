@@ -28,4 +28,17 @@ class AuthRepository {
       throw Exception('Failed to create user record: $e');
     }
   }
+
+  Future<User> getUserRecord({required String id}) async{
+    try {
+      var response = await dio.post("${AppConstants.loginUrl}", data: {"userId": id});
+
+      print((response.data as Map<String, dynamic>)["user"]);
+      var mapOfUser = (response.data as Map<String, dynamic>)["user"];
+      return User.fromJson(mapOfUser);
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to get user record: $e');
+    }
+  }
 }

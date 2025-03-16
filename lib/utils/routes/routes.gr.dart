@@ -12,12 +12,12 @@
 import 'package:auto_route/auto_route.dart' as _i9;
 import 'package:takesavenue/features/auth/page/sign_in_page.dart' as _i6;
 import 'package:takesavenue/features/auth/page/sign_up_page.dart' as _i7;
-import 'package:takesavenue/features/banters/page/add_banter_page.dart' as _i1;
-import 'package:takesavenue/features/banters/page/banters_page.dart' as _i2;
-import 'package:takesavenue/features/banters/page/view_item_page.dart' as _i8;
 import 'package:takesavenue/features/home/page/home_page.dart' as _i3;
 import 'package:takesavenue/features/profile/page/profile_page.dart' as _i4;
 import 'package:takesavenue/features/settings/page/settings_page.dart' as _i5;
+import 'package:takesavenue/features/takes/page/add_takes_page.dart' as _i1;
+import 'package:takesavenue/features/takes/page/takes_page.dart' as _i2;
+import 'package:takesavenue/features/takes/page/view_item_page.dart' as _i8;
 
 /// generated route for
 /// [_i1.AddBanterPage]

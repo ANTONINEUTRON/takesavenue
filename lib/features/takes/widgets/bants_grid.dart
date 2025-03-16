@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takesavenue/features/banters/widgets/mini_video_player.dart';
+import 'package:takesavenue/features/takes/widgets/mini_video_player.dart';
 import 'package:takesavenue/utils/widgets/custom_button.dart';
 
 class BantsGrid extends StatelessWidget {

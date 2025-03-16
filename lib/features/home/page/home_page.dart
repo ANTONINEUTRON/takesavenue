@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:takesavenue/utils/routes/routes.gr.dart';
-import 'package:takesavenue/features/banters/page/add_banter_page.dart';
-import 'package:takesavenue/features/banters/page/banters_page.dart';
+import 'package:takesavenue/features/takes/page/add_takes_page.dart';
+import 'package:takesavenue/features/takes/page/takes_page.dart';
 import 'package:takesavenue/features/profile/page/profile_page.dart';
 import 'package:takesavenue/gen/assets.gen.dart';
 

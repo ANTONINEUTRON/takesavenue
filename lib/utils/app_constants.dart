@@ -8,5 +8,9 @@ class AppConstants {
 
   static final String userUrl = "$baseUrl/user";
 
+  static final String loginWithGoogleUrl = "$baseUrl/login/google";
+
   static final String loginUrl = "$baseUrl/login";
+
+  static final String takesUrl = "$baseUrl/takes";
 }

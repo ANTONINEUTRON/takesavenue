@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takesavenue/features/banters/widgets/bants_grid.dart';
+import 'package:takesavenue/features/takes/widgets/bants_grid.dart';
 
 class VideoSection extends StatelessWidget {
   const VideoSection({super.key, required this.index});

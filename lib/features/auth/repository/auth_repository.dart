@@ -11,11 +11,11 @@ class AuthRepository {
     print(response.data);
   }
 
-  Future<User> createUserRecord({required User user}) async {
+  Future<User> createUserRecord({required String id, required String email, required String username}) async {
     final userData = {
-      'email': user.email,
-      'username': user.username,
-      'id': user.id,
+      'email': email,
+      'username': username,
+      'id': id,
     };
 
     try {
@@ -39,6 +39,25 @@ class AuthRepository {
     } catch (e) {
       print(e);
       throw Exception('Failed to get user record: $e');
+    }
+  }
+
+  Future<User> signInWithGoogle({required String id, required String email, required String username, String? profilePicture})async {
+    final userData = {
+      'email': email,
+      'username': username,
+      'id': id,
+      'profile_pics': profilePicture,
+    };
+
+    try {
+      var response = await dio.post(AppConstants.loginWithGoogleUrl, data: userData);
+      
+      var mapOfUser = (response.data as Map<String, dynamic>)["user"];
+      return User.fromJson(mapOfUser);
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to create user record: $e');
     }
   }
 }

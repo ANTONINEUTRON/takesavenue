@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:takesavenue/features/takes/cubits/takes_cubit.dart';
 import 'package:takesavenue/utils/routes/routes.dart';
 import 'package:takesavenue/features/auth/cubits/auth_cubits.dart';
 import 'package:takesavenue/features/home/cubits/home_cubit.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         // BlocProvider(create: (context) => AppCubit()),
         BlocProvider(create: (context) => HomeCubit()),
         BlocProvider(create: (context) => AuthCubits()),
+        BlocProvider(create: (context) => TakesCubit()),
       ],
       child: MaterialApp.router(
         title: AppConstants.appName,

@@ -61,11 +61,9 @@ class AuthCubits extends Cubit<AuthState> {
         // var verificationId = await credential.user!.getIdToken();
 
         user_model.User user = await authRepository.createUserRecord(
-          user: user_model.User(
-            id: credential.user!.uid,
-            email: email,
-            username: username,
-          ),
+          id: credential.user!.uid,
+          email: email,
+          username: username,
         );
 
         emit(state.copyWith(user: user));
@@ -101,6 +99,12 @@ class AuthCubits extends Cubit<AuthState> {
       await FirebaseAuth.instance.signInWithCredential(credential);
 
       // Call the API to store user details
+      user_model.User user = await authRepository.signInWithGoogle(
+        id: FirebaseAuth.instance.currentUser!.uid,
+        email: FirebaseAuth.instance.currentUser!.email!,
+        username: FirebaseAuth.instance.currentUser!.displayName!,
+        profilePicture: FirebaseAuth.instance.currentUser!.photoURL,
+      );
     } catch (e) {
       emit(state.copyWith(errorMessage: e.toString()));
       showMessage(context, e.toString());

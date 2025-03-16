@@ -105,6 +105,12 @@ class AuthCubits extends Cubit<AuthState> {
         username: FirebaseAuth.instance.currentUser!.displayName!,
         profilePicture: FirebaseAuth.instance.currentUser!.photoURL,
       );
+
+      emit(state.copyWith(user: user));
+
+      appStorage.setObject(userKey, user.toJson());
+
+      context.router.replaceAll([HomeRoute()]);
     } catch (e) {
       emit(state.copyWith(errorMessage: e.toString()));
       showMessage(context, e.toString());

@@ -24,6 +24,7 @@ mixin _$User {
   String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
+  String? get keypair => throw _privateConstructorUsedError;
   int get credits => throw _privateConstructorUsedError;
   @JsonKey(name: 'profile_pics')
   String? get profilePicture => throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $UserCopyWith<$Res> {
     String id,
     String email,
     String username,
+    String? keypair,
     int credits,
     @JsonKey(name: 'profile_pics') String? profilePicture,
   });
@@ -69,6 +71,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? id = null,
     Object? email = null,
     Object? username = null,
+    Object? keypair = freezed,
     Object? credits = null,
     Object? profilePicture = freezed,
   }) {
@@ -89,6 +92,11 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
                     ? _value.username
                     : username // ignore: cast_nullable_to_non_nullable
                         as String,
+            keypair:
+                freezed == keypair
+                    ? _value.keypair
+                    : keypair // ignore: cast_nullable_to_non_nullable
+                        as String?,
             credits:
                 null == credits
                     ? _value.credits
@@ -117,6 +125,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
     String id,
     String email,
     String username,
+    String? keypair,
     int credits,
     @JsonKey(name: 'profile_pics') String? profilePicture,
   });
@@ -137,6 +146,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? id = null,
     Object? email = null,
     Object? username = null,
+    Object? keypair = freezed,
     Object? credits = null,
     Object? profilePicture = freezed,
   }) {
@@ -157,6 +167,11 @@ class __$$UserImplCopyWithImpl<$Res>
                 ? _value.username
                 : username // ignore: cast_nullable_to_non_nullable
                     as String,
+        keypair:
+            freezed == keypair
+                ? _value.keypair
+                : keypair // ignore: cast_nullable_to_non_nullable
+                    as String?,
         credits:
             null == credits
                 ? _value.credits
@@ -179,6 +194,7 @@ class _$UserImpl implements _User {
     required this.id,
     required this.email,
     required this.username,
+    this.keypair,
     this.credits = 0,
     @JsonKey(name: 'profile_pics') this.profilePicture,
   });
@@ -193,6 +209,8 @@ class _$UserImpl implements _User {
   @override
   final String username;
   @override
+  final String? keypair;
+  @override
   @JsonKey()
   final int credits;
   @override
@@ -201,7 +219,7 @@ class _$UserImpl implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, email: $email, username: $username, credits: $credits, profilePicture: $profilePicture)';
+    return 'User(id: $id, email: $email, username: $username, keypair: $keypair, credits: $credits, profilePicture: $profilePicture)';
   }
 
   @override
@@ -213,6 +231,7 @@ class _$UserImpl implements _User {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.username, username) ||
                 other.username == username) &&
+            (identical(other.keypair, keypair) || other.keypair == keypair) &&
             (identical(other.credits, credits) || other.credits == credits) &&
             (identical(other.profilePicture, profilePicture) ||
                 other.profilePicture == profilePicture));
@@ -220,8 +239,15 @@ class _$UserImpl implements _User {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, email, username, credits, profilePicture);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    email,
+    username,
+    keypair,
+    credits,
+    profilePicture,
+  );
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -242,6 +268,7 @@ abstract class _User implements User {
     required final String id,
     required final String email,
     required final String username,
+    final String? keypair,
     final int credits,
     @JsonKey(name: 'profile_pics') final String? profilePicture,
   }) = _$UserImpl;
@@ -254,6 +281,8 @@ abstract class _User implements User {
   String get email;
   @override
   String get username;
+  @override
+  String? get keypair;
   @override
   int get credits;
   @override

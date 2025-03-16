@@ -14,7 +14,7 @@ class TakeRepository {
     required int duration,
   }) async {
     try {
-      var response = await _dio.post(
+      await _dio.post(
         AppConstants.takesUrl,
         data: {
           'userId': userId,
@@ -26,8 +26,6 @@ class TakeRepository {
           'duration': duration,
         },
       );
-
-      
     } catch (e) {
       print(e);
       throw Exception('Failed to save take');

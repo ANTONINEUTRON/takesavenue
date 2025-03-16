@@ -1,5 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:avatar_plus/avatar_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:takesavenue/features/auth/cubits/auth_cubits.dart';
+import 'package:takesavenue/utils/models/user.dart';
 
 @RoutePage()
 class ProfilePage extends StatelessWidget {
@@ -7,6 +11,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User user = context.watch<AuthCubits>().state.user!;
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -18,25 +24,26 @@ class ProfilePage extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 50,
-                      backgroundImage: NetworkImage('https://placeholder.com/150'),
+                      backgroundImage: user.profilePicture!.isEmpty ? null : NetworkImage(user.profilePicture!),
+                      child: user.profilePicture!.isEmpty ? AvatarPlus(user.username) : null,
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      '@username',
+                     Text(
+                      user.username,
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const Text(
-                      'user@email.com',
+                     Text(
+                      user.email,
                       style: TextStyle(color: Colors.grey),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'ID: #123456',
+                      formatWallet(user.keypair ?? ""),
                       style: TextStyle(color: Colors.grey[600]),
                     ),
                   ],
@@ -60,13 +67,13 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children:  [
                         Text(
                           'Credits',
                           style: TextStyle(color: Colors.white70),
                         ),
                         Text(
-                          '1,234',
+                          user.credits.toString(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,
@@ -94,7 +101,7 @@ class ProfilePage extends StatelessWidget {
               // Tabs
               const TabBar(
                 tabs: [
-                  Tab(text: 'Activities'),
+                  Tab(text: 'Takes'),
                   Tab(text: 'Favorites'),
                   Tab(text: 'Leaderboard'),
                 ],
@@ -153,5 +160,11 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
     );
+  }
+  
+  String formatWallet(String keypair) {
+    if(keypair.isEmpty) return "";
+
+    return keypair.substring(0, 5) + "..." + keypair.substring(keypair.length - 5);
   }
 }

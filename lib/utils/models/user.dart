@@ -9,6 +9,7 @@ class User with _$User {
     required String id,
     required String email,
     required String username,
+    String? keypair,
     @Default(0) int credits,
     @JsonKey(name: 'profile_pics') String? profilePicture,
   }) = _User;

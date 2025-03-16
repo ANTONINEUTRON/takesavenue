@@ -20,10 +20,10 @@ class EvidenceSection extends StatefulWidget {
   });
 
   @override
-  State<EvidenceSection> createState() => _EvidenceSectionState();
+  State<EvidenceSection> createState() => EvidenceSectionState();
 }
 
-class _EvidenceSectionState extends State<EvidenceSection> {
+class EvidenceSectionState extends State<EvidenceSection> {
   EvidenceType _selectedType = EvidenceType.video;
   final _textController = TextEditingController();
   File? _selectedImage;
@@ -33,6 +33,15 @@ class _EvidenceSectionState extends State<EvidenceSection> {
   void dispose() {
     _textController.dispose();
     super.dispose();
+  }
+
+  void reset() {
+    setState(() {
+      _selectedType = EvidenceType.video;
+      _textController.clear();
+      _selectedImage = null;
+      _selectedVideo = null;
+    });
   }
 
   void _showImageSourceOptions() {

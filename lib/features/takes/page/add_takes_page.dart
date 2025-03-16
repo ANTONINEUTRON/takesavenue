@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:takesavenue/features/takes/cubits/takes_cubit.dart';
 import 'package:takesavenue/features/takes/widgets/evidence_section.dart';
+import 'package:takesavenue/utils/routes/routes.gr.dart';
 import 'package:video_player/video_player.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 
 @RoutePage()
 class AddBanterPage extends StatefulWidget {
@@ -17,16 +18,16 @@ class AddBanterPage extends StatefulWidget {
 }
 
 class _AddBanterPageState extends State<AddBanterPage> {
-  final _formKey = GlobalKey<FormState>();
+  final _evidenceSectionKey = GlobalKey<EvidenceSectionState>();
+  // final _formKey = GlobalKey<FormState>();
   final _takeController = TextEditingController();
   final _challengeUserController = TextEditingController();
   final _punishmentController = TextEditingController();
   int _selectedDuration = 1;
   bool _isLoading = false;
-  String _selectedEvidenceType = 'text';
+  // String _selectedEvidenceType = 'text';
   File? _selectedImage;
   File? _selectedVideo;
-  VideoPlayerController? _videoController;
   String _evidenceText = '';
 
   bool _validateInputs() {
@@ -80,17 +81,16 @@ class _AddBanterPageState extends State<AddBanterPage> {
             _evidenceText.isNotEmpty
                 ? _evidenceText
                 : _selectedImage?.path ?? _selectedVideo?.path ?? '',
-        onCompleted: () {
-          // reset form
+        onComplete: () {
           _takeController.clear();
           _challengeUserController.clear();
           _punishmentController.clear();
           _selectedDuration = 1;
           _selectedImage = null;
           _selectedVideo = null;
-          _videoController?.dispose();
-          _videoController = null;
           _evidenceText = '';
+
+          _evidenceSectionKey.currentState?.reset();
         },
       );
     } catch (e) {
@@ -118,12 +118,13 @@ class _AddBanterPageState extends State<AddBanterPage> {
     _takeController.dispose();
     _challengeUserController.dispose();
     _punishmentController.dispose();
-    _videoController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    _isLoading = context.watch<TakesCubit>().state.isLoading;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Create New Take')),
       body: ListView(
@@ -148,7 +149,7 @@ class _AddBanterPageState extends State<AddBanterPage> {
 
           // Dynamic Evidence Input
           EvidenceSection(
-            videoController: _videoController,
+            key: _evidenceSectionKey,
             onTextChanged: (text) {
               // Handle text evidence
               _evidenceText = text;
@@ -169,10 +170,6 @@ class _AddBanterPageState extends State<AddBanterPage> {
                 _evidenceText = "";
                 _selectedImage = null;
                 _selectedVideo = file;
-                _videoController = VideoPlayerController.file(file)
-                  ..initialize().then((_) {
-                    setState(() {});
-                  });
               });
             },
           ),
@@ -236,7 +233,6 @@ class _AddBanterPageState extends State<AddBanterPage> {
                     .toList(),
             onChanged: (value) {
               setState(() {
-
                 _selectedDuration = value!;
               });
             },

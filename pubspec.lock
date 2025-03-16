@@ -193,6 +193,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.2"
+  cloudinary:
+    dependency: "direct main"
+    description:
+      name: cloudinary
+      sha256: "9bbf6cc105e0ffc60dc415aea5914e42f34bbaccbf1416529aeabce6eda0fab6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   code_builder:
     dependency: transitive
     description:
@@ -298,7 +306,7 @@ packages:
     source: hosted
     version: "2.1.1"
   envied:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: envied
       sha256: a4e2b1d0caa479b5d61332ae516518c175a6d09328a35a0bc0a53894cc5d7e4d

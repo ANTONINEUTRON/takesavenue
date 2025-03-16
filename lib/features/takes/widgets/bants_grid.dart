@@ -12,7 +12,7 @@ class BantsGrid extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
-        mainAxisExtent: MediaQuery.of(context).size.height * 0.55,
+        mainAxisExtent: MediaQuery.of(context).size.height * 0.50,
       ),
       padding: const EdgeInsets.all(2),
       shrinkWrap: true,
@@ -29,9 +29,7 @@ class BantsGrid extends StatelessWidget {
         // Second Grid Item
         Column(
           children: [
-            Expanded(
-              child: Container(color: Colors.blueGrey, width: double.infinity),
-            ),
+            Expanded(child: MiniVideoPlayer()),
             const SizedBox(height: 8),
             const CustomButton(text: "Disagree", color: Colors.blueGrey),
           ],

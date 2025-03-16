@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:takesavenue/features/takes/widgets/video_section.dart';
+import 'package:takesavenue/features/takes/widgets/take_section.dart';
 
 @RoutePage()
 class BantersPage extends StatelessWidget {
@@ -13,7 +13,7 @@ class BantersPage extends StatelessWidget {
         scrollDirection: Axis.vertical,
         physics: const PageScrollPhysics(),
         itemBuilder: (context, index) {
-          return Container(child: Center(child: VideoSection(index: index)));
+          return Container(child: Center(child: TakeSection()));
         },
       ),
     );

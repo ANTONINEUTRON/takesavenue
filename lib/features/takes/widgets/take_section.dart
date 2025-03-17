@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:takesavenue/features/takes/widgets/bants_grid.dart';
+import 'package:takesavenue/utils/functions/get_time_left.dart';
+import 'package:takesavenue/utils/models/take.dart';
 
 class TakeSection extends StatelessWidget {
-  const TakeSection({super.key});
-  // final int index;
+  const TakeSection({super.key, required this.take});
+  final Take take;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,10 @@ class TakeSection extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        '2d 14h',
+                        getTimeLeft(
+                          take.createdAt,
+                          Duration(milliseconds: take.duration).inDays,
+                        ),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -49,7 +54,7 @@ class TakeSection extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       const Text(
-                        '1,234',
+                        '107 TKE',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -64,7 +69,9 @@ class TakeSection extends StatelessWidget {
           ),
         ),
         // Your video player widget here
-        Positioned(top: 56, right: 2, left: 2, child: BantsGrid()),
+        Positioned(top: 56, right: 2, left: 2, child: BantsGrid(
+          take: take,
+        )),
         // Add details card
         // Overlay controls, likes, comments etc
         Positioned(
@@ -106,25 +113,17 @@ class TakeSection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               color: Colors.transparent,
-              // gradient: LinearGradient(
-              //   begin: Alignment.topCenter,
-              //   end: Alignment.bottomCenter,
-              //   colors: [
-              //     Colors.transparent,
-              //     Colors.black.withOpacity(0.8),
-              //   ],
-              // ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Punishment',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                Text(
+                  take.title,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'username  username  username  username  username  username username  username  username ',
+                  take.punishment,
                   style: TextStyle(fontSize: 14),
                 ),
                 const SizedBox(height: 16),

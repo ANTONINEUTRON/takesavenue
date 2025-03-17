@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:takesavenue/features/takes/cubits/takes_cubit.dart';
 import 'package:takesavenue/gen/assets.gen.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 
 class MiniVideoPlayer extends StatefulWidget {
+  const MiniVideoPlayer({super.key, required this.userId});
 
-  const MiniVideoPlayer({
-    Key? key,
-  }) : super(key: key);
+  final String userId;
 
   @override
   State<MiniVideoPlayer> createState() => _MiniVideoPlayerState();
@@ -18,12 +19,18 @@ class _MiniVideoPlayerState extends State<MiniVideoPlayer> {
   late VideoPlayerController _videoController;
   bool _isLoading = true;
   bool _isFullScreen = false;
-  var username = "username";
+  var username = "";
 
   @override
   void initState() {
     super.initState();
     _initializePlayer();
+
+    context.read<TakesCubit>().getUser(context, widget.userId).then((user) {
+      setState(() {
+        username = user!.username;
+      });
+    });
   }
 
   Future<void> _initializePlayer() async {
@@ -146,86 +153,93 @@ class _MiniVideoPlayerState extends State<MiniVideoPlayer> {
     setState(() {
       _isFullScreen = !_isFullScreen;
       if (_isFullScreen) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => Scaffold(
-              backgroundColor: Colors.black,
-              body: SafeArea(
-                child: Stack(
-                  children: [
-                    // Video Player
-                    Center(
-                      child: AspectRatio(
-                        aspectRatio: _videoController.value.aspectRatio,
-                        child: Chewie(controller: chewieController),
-                      ),
-                    ),
-                    
-                    // Username Overlay with Gradient
-                    Positioned(
-                      top: 16,
-                      right: 16,
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(56, 16, 16, 16),
-                        decoration: BoxDecoration(
-                        ),
-                        child: Row(
+        Navigator.of(context)
+            .push(
+              MaterialPageRoute(
+                builder:
+                    (context) => Scaffold(
+                      backgroundColor: Colors.black,
+                      body: SafeArea(
+                        child: Stack(
                           children: [
-                            Text(
-                              '@${username}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                            // Video Player
+                            Center(
+                              child: AspectRatio(
+                                aspectRatio: _videoController.value.aspectRatio,
+                                child: Chewie(controller: chewieController),
                               ),
                             ),
+
+                            // Username Overlay with Gradient
+                            Positioned(
+                              top: 16,
+                              right: 16,
+                              child: Container(
+                                padding: const EdgeInsets.fromLTRB(
+                                  56,
+                                  16,
+                                  16,
+                                  16,
+                                ),
+                                decoration: BoxDecoration(),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      '@${username}',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            // Close Button
+                            Positioned(
+                              top: 16,
+                              left: 16,
+                              child: IconButton(
+                                icon: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  setState(() => _isFullScreen = false);
+                                },
+                              ),
+                            ),
+                            // if (!_videoController.value.isPlaying)
+                            //   Center(
+                            //     child: Container(
+                            //       decoration: const BoxDecoration(
+                            //         color: Colors.black26,
+                            //         shape: BoxShape.circle,
+                            //       ),
+                            //       child: IconButton(
+                            //         iconSize: 50,
+                            //         icon: const Icon(
+                            //           Icons.play_arrow,
+                            //           color: Colors.white,
+                            //         ),
+                            //         onPressed: () {
+                            //           setState(() {
+                            //             _videoController.play();
+                            //           });
+                            //         },
+                            //       ),
+                            //     ),
+                            //   ),
                           ],
                         ),
                       ),
                     ),
-                    
-                    // Close Button
-                    Positioned(
-                      top: 16,
-                      left: 16,
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.close,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          setState(() => _isFullScreen = false);
-                        },
-                      ),
-                    ),
-                    // if (!_videoController.value.isPlaying)
-                    //   Center(
-                    //     child: Container(
-                    //       decoration: const BoxDecoration(
-                    //         color: Colors.black26,
-                    //         shape: BoxShape.circle,
-                    //       ),
-                    //       child: IconButton(
-                    //         iconSize: 50,
-                    //         icon: const Icon(
-                    //           Icons.play_arrow,
-                    //           color: Colors.white,
-                    //         ),
-                    //         onPressed: () {
-                    //           setState(() {
-                    //             _videoController.play();
-                    //           });
-                    //         },
-                    //       ),
-                    //     ),
-                    //   ),
-                  ],
-                ),
               ),
-            ),
-          ),
-        ).then((_) => setState(() => _isFullScreen = false));
+            )
+            .then((_) => setState(() => _isFullScreen = false));
       }
     });
   }

@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:takesavenue/features/home/widgets/settings_button.dart';
 import 'package:takesavenue/features/takes/cubits/takes_cubit.dart';
-import 'package:takesavenue/utils/routes/routes.gr.dart';
 import 'package:takesavenue/features/takes/page/add_takes_page.dart';
 import 'package:takesavenue/features/takes/page/takes_page.dart';
 import 'package:takesavenue/features/profile/page/profile_page.dart';
@@ -22,11 +22,18 @@ class _HomePageState extends State<HomePage> {
   var pages = [TakesPage(), AddBanterPage(), ProfilePage()];
 
   @override
-  Widget build(BuildContext context) {
-    context.read<TakesCubit>().fetchFeed(context);
-    context.read<TakesCubit>().fetchUserTakes(context);
-    context.read<TakesCubit>().fetchLeaderboard(context);
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    var takesCubit = context.read<TakesCubit>();
 
+    takesCubit.fetchFeed(context);
+    takesCubit.fetchUserTakes(context);
+    takesCubit.fetchLeaderboard(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -88,20 +95,6 @@ class _HomePageState extends State<HomePage> {
             label: "Profile",
           ),
         ],
-      ),
-    );
-  }
-}
-
-class SettingsButton extends StatelessWidget {
-  const SettingsButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      child: IconButton(
-        icon: Icon(Icons.settings),
-        onPressed: () => context.router.push(SettingsRoute()),
       ),
     );
   }

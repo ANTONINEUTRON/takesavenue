@@ -18,4 +18,5 @@ class AppConstants {
 
   static String leaderboardUrl = "$baseUrl/users";
 
+  static String getUser(String id) => "$baseUrl/users/$id";
 }

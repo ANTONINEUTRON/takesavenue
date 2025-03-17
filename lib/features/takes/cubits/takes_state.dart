@@ -11,6 +11,7 @@ class TakesState extends Equatable {
     this.userTakes = const [],
     this.takesFeed = const [],
     this.leaderboard = const [],
+    this.userCache = const {},
   });
 
   final bool isLoading;
@@ -20,6 +21,7 @@ class TakesState extends Equatable {
   final List<Take> userTakes;
   final List<Take> takesFeed;
   final List<User> leaderboard;
+  final Set<User> userCache;
 
   @override
   List<Object> get props => [
@@ -29,7 +31,8 @@ class TakesState extends Equatable {
     isLoadingFeed,
     isLoadingUserTake,
     leaderboard,
-    isLoadingUsers
+    isLoadingUsers,
+    userCache
   ];
 
   TakesState copyWith({
@@ -40,7 +43,7 @@ class TakesState extends Equatable {
     bool? isLoadingUsers,
     bool? isLoadingUserTake,
     List<User>? leaderboard,
-
+    Set<User>? userCache,
   }) {
     return TakesState(
       isLoading: isLoading ?? this.isLoading,
@@ -49,7 +52,8 @@ class TakesState extends Equatable {
       isLoadingFeed: isLoadingFeed ?? this.isLoadingFeed,
       isLoadingUserTake: isLoadingUserTake ?? this.isLoadingUserTake,
       leaderboard: leaderboard ?? this.leaderboard,
-      isLoadingUsers: isLoadingUsers ?? this.isLoadingUsers
+      userCache: userCache ?? this.userCache,
+      isLoadingUsers: isLoadingUsers ?? this.isLoadingUsers,
     );
   }
 }

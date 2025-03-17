@@ -5,12 +5,6 @@ import 'package:takesavenue/utils/app_constants.dart';
 class AuthRepository {
   final dio = Dio();
 
-  Future<void> hello() async {
-    final _url = "${AppConstants.baseUrl}hello";
-    var response = await dio.get(_url);
-    print(response.data);
-  }
-
   Future<User> createUserRecord({required String id, required String email, required String username}) async {
     final userData = {
       'email': email,
@@ -33,7 +27,6 @@ class AuthRepository {
     try {
       var response = await dio.post("${AppConstants.loginUrl}", data: {"userId": id});
 
-      print((response.data as Map<String, dynamic>)["user"]);
       var mapOfUser = (response.data as Map<String, dynamic>)["user"];
       return User.fromJson(mapOfUser);
     } catch (e) {

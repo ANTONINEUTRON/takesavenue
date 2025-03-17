@@ -79,4 +79,16 @@ class TakeRepository {
       throw Exception('Failed to get leaderboar');
     }
   }
+
+  Future<User> getUser(String id) async {
+    try {
+      final response = await _dio.get(AppConstants.getUser(id));
+      final mapOfUser = (response.data as Map<String, dynamic>);
+      print(mapOfUser);
+      return User.fromJson(mapOfUser);
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to get user record: $e');
+    }
+  }
 }

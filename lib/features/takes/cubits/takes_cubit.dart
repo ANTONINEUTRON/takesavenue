@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:cloudinary/cloudinary.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:takesavenue/features/takes/cubits/takes_state.dart';
 import 'package:takesavenue/features/takes/repository/take_repository.dart';
 import 'package:takesavenue/gen/env.dart';
-import 'package:takesavenue/utils/routes/routes.gr.dart';
+import 'package:takesavenue/utils/models/user.dart' as user_model;
+import 'package:takesavenue/utils/models/take.dart';
 import 'package:takesavenue/utils/widgets/show_message.dart';
 
 class TakesCubit extends Cubit<TakesState> {
@@ -21,9 +21,49 @@ class TakesCubit extends Cubit<TakesState> {
     cloudName: Env.cloudinaryCloudName,
   );
 
-  void fetchTakes() {
+  void fetchFeed(BuildContext context) async {
+    emit(state.copyWith(isLoadingFeed: true));
     // Fetch takes from API
-    emit(state.copyWith());
+    try {
+      List<Take> feedTakes =
+          await _takeRepository.getFeedTakes(); //TODO pass paging later
+      emit(state.copyWith(userTakes: feedTakes));
+      print("Feed takes");
+      print(feedTakes);
+    } catch (e) {
+      print(e);
+      showMessage(context, e.toString());
+    }
+    emit(state.copyWith(isLoadingFeed: false));
+  }
+
+  void fetchUserTakes(BuildContext context) async {
+    emit(state.copyWith(isLoadingUserTake: true));
+    // Fetch takes from API
+    try {
+      List<Take> userTakes = await _takeRepository.getUserTakes(
+        FirebaseAuth.instance.currentUser!.uid,
+      );
+      emit(state.copyWith(userTakes: userTakes));
+    } catch (e) {
+      print(e);
+      showMessage(context, e.toString());
+    }
+    emit(state.copyWith(isLoadingUserTake: false));
+  }
+
+  void fetchLeaderboard(BuildContext context) async {
+    emit(state.copyWith(isLoadingUserTake: true));
+    // Fetch takes from API
+    try {
+      List<user_model.User> leaderboard = await _takeRepository.fetchLeaderboard(
+      );
+      emit(state.copyWith(leaderboard: leaderboard));
+    } catch (e) {
+      print(e);
+      showMessage(context, e.toString());
+    }
+    emit(state.copyWith(isLoadingUserTake: false));
   }
 
   void addTake(
@@ -37,11 +77,6 @@ class TakesCubit extends Cubit<TakesState> {
     required Function onComplete,
   }) async {
     // Add take to API
-    print('Title: $title');
-    print('Content Type: $contenttype');
-    print('Punishment: $punishment');
-    print('Content: $content');
-    print('Duration: $duration');
     emit(state.copyWith(isLoading: true));
 
     try {
@@ -70,11 +105,6 @@ class TakesCubit extends Cubit<TakesState> {
       showMessage(context, e.toString());
     }
     emit(state.copyWith(isLoading: false));
-  }
-
-  void deleteTake() {
-    // Delete take from API
-    emit(state.copyWith());
   }
 
   Future<String> _uploadFileToCloudinary(File file) async {

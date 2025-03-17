@@ -9,7 +9,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SignInRoute.page, initial: true),
     AutoRoute(page: SignUpRoute.page),
     AutoRoute(page: ProfileRoute.page),
-    AutoRoute(page: BantersRoute.page),
+    AutoRoute(page: TakesRoute.page),
     AutoRoute(page: AddBanterRoute.page),
     AutoRoute(page: SettingsRoute.page),
     AutoRoute(page: ViewItemRoute.page),

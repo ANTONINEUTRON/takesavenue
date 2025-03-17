@@ -18,6 +18,8 @@ class Take with _$Take {
     required String punishment,
     required int duration,
     required TakeStatus status,
+    ContentType? reponsetype,
+    required String response,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'expires_at') DateTime? expiresAt,
     @Default(0) int likes,

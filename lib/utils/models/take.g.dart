@@ -16,6 +16,8 @@ _$TakeImpl _$$TakeImplFromJson(Map<String, dynamic> json) => _$TakeImpl(
   punishment: json['punishment'] as String,
   duration: (json['duration'] as num).toInt(),
   status: $enumDecode(_$TakeStatusEnumMap, json['status']),
+  reponsetype: $enumDecodeNullable(_$ContentTypeEnumMap, json['reponsetype']),
+  response: json['response'] as String,
   createdAt:
       json['created_at'] == null
           ? null
@@ -41,6 +43,8 @@ Map<String, dynamic> _$$TakeImplToJson(_$TakeImpl instance) =>
       'punishment': instance.punishment,
       'duration': instance.duration,
       'status': _$TakeStatusEnumMap[instance.status]!,
+      'reponsetype': _$ContentTypeEnumMap[instance.reponsetype],
+      'response': instance.response,
       'created_at': instance.createdAt?.toIso8601String(),
       'expires_at': instance.expiresAt?.toIso8601String(),
       'likes': instance.likes,

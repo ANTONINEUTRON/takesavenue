@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:takesavenue/features/takes/widgets/take_section.dart';
 
 @RoutePage()
-class BantersPage extends StatelessWidget {
-  const BantersPage({super.key});
+class TakesPage extends StatelessWidget {
+  const TakesPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -30,6 +30,8 @@ mixin _$Take {
   String get punishment => throw _privateConstructorUsedError;
   int get duration => throw _privateConstructorUsedError;
   TakeStatus get status => throw _privateConstructorUsedError;
+  ContentType? get reponsetype => throw _privateConstructorUsedError;
+  String get response => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'expires_at')
@@ -63,6 +65,8 @@ abstract class $TakeCopyWith<$Res> {
     String punishment,
     int duration,
     TakeStatus status,
+    ContentType? reponsetype,
+    String response,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'expires_at') DateTime? expiresAt,
     int likes,
@@ -96,6 +100,8 @@ class _$TakeCopyWithImpl<$Res, $Val extends Take>
     Object? punishment = null,
     Object? duration = null,
     Object? status = null,
+    Object? reponsetype = freezed,
+    Object? response = null,
     Object? createdAt = freezed,
     Object? expiresAt = freezed,
     Object? likes = null,
@@ -150,6 +156,16 @@ class _$TakeCopyWithImpl<$Res, $Val extends Take>
                     ? _value.status
                     : status // ignore: cast_nullable_to_non_nullable
                         as TakeStatus,
+            reponsetype:
+                freezed == reponsetype
+                    ? _value.reponsetype
+                    : reponsetype // ignore: cast_nullable_to_non_nullable
+                        as ContentType?,
+            response:
+                null == response
+                    ? _value.response
+                    : response // ignore: cast_nullable_to_non_nullable
+                        as String,
             createdAt:
                 freezed == createdAt
                     ? _value.createdAt
@@ -204,6 +220,8 @@ abstract class _$$TakeImplCopyWith<$Res> implements $TakeCopyWith<$Res> {
     String punishment,
     int duration,
     TakeStatus status,
+    ContentType? reponsetype,
+    String response,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'expires_at') DateTime? expiresAt,
     int likes,
@@ -234,6 +252,8 @@ class __$$TakeImplCopyWithImpl<$Res>
     Object? punishment = null,
     Object? duration = null,
     Object? status = null,
+    Object? reponsetype = freezed,
+    Object? response = null,
     Object? createdAt = freezed,
     Object? expiresAt = freezed,
     Object? likes = null,
@@ -288,6 +308,16 @@ class __$$TakeImplCopyWithImpl<$Res>
                 ? _value.status
                 : status // ignore: cast_nullable_to_non_nullable
                     as TakeStatus,
+        reponsetype:
+            freezed == reponsetype
+                ? _value.reponsetype
+                : reponsetype // ignore: cast_nullable_to_non_nullable
+                    as ContentType?,
+        response:
+            null == response
+                ? _value.response
+                : response // ignore: cast_nullable_to_non_nullable
+                    as String,
         createdAt:
             freezed == createdAt
                 ? _value.createdAt
@@ -336,6 +366,8 @@ class _$TakeImpl implements _Take {
     required this.punishment,
     required this.duration,
     required this.status,
+    this.reponsetype,
+    required this.response,
     @JsonKey(name: 'created_at') this.createdAt,
     @JsonKey(name: 'expires_at') this.expiresAt,
     this.likes = 0,
@@ -366,6 +398,10 @@ class _$TakeImpl implements _Take {
   @override
   final TakeStatus status;
   @override
+  final ContentType? reponsetype;
+  @override
+  final String response;
+  @override
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
   @override
@@ -386,7 +422,7 @@ class _$TakeImpl implements _Take {
 
   @override
   String toString() {
-    return 'Take(id: $id, title: $title, userId: $userId, content: $content, contenttype: $contenttype, responder: $responder, punishment: $punishment, duration: $duration, status: $status, createdAt: $createdAt, expiresAt: $expiresAt, likes: $likes, shares: $shares, agrees: $agrees, disagrees: $disagrees)';
+    return 'Take(id: $id, title: $title, userId: $userId, content: $content, contenttype: $contenttype, responder: $responder, punishment: $punishment, duration: $duration, status: $status, reponsetype: $reponsetype, response: $response, createdAt: $createdAt, expiresAt: $expiresAt, likes: $likes, shares: $shares, agrees: $agrees, disagrees: $disagrees)';
   }
 
   @override
@@ -407,6 +443,10 @@ class _$TakeImpl implements _Take {
             (identical(other.duration, duration) ||
                 other.duration == duration) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.reponsetype, reponsetype) ||
+                other.reponsetype == reponsetype) &&
+            (identical(other.response, response) ||
+                other.response == response) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.expiresAt, expiresAt) ||
@@ -431,6 +471,8 @@ class _$TakeImpl implements _Take {
     punishment,
     duration,
     status,
+    reponsetype,
+    response,
     createdAt,
     expiresAt,
     likes,
@@ -464,6 +506,8 @@ abstract class _Take implements Take {
     required final String punishment,
     required final int duration,
     required final TakeStatus status,
+    final ContentType? reponsetype,
+    required final String response,
     @JsonKey(name: 'created_at') final DateTime? createdAt,
     @JsonKey(name: 'expires_at') final DateTime? expiresAt,
     final int likes,
@@ -492,6 +536,10 @@ abstract class _Take implements Take {
   int get duration;
   @override
   TakeStatus get status;
+  @override
+  ContentType? get reponsetype;
+  @override
+  String get response;
   @override
   @JsonKey(name: 'created_at')
   DateTime? get createdAt;

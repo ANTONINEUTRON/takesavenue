@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:takesavenue/features/takes/cubits/takes_cubit.dart';
 import 'package:takesavenue/features/takes/widgets/evidence_section.dart';
-import 'package:takesavenue/utils/routes/routes.gr.dart';
-import 'package:video_player/video_player.dart';
 // import 'package:image_picker/image_picker.dart';
 
 @RoutePage()
@@ -14,10 +12,10 @@ class AddBanterPage extends StatefulWidget {
   const AddBanterPage({super.key});
 
   @override
-  _AddBanterPageState createState() => _AddBanterPageState();
+  AddBanterPageState createState() => AddBanterPageState();
 }
 
-class _AddBanterPageState extends State<AddBanterPage> {
+class AddBanterPageState extends State<AddBanterPage> {
   final _evidenceSectionKey = GlobalKey<EvidenceSectionState>();
   // final _formKey = GlobalKey<FormState>();
   final _takeController = TextEditingController();

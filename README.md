@@ -1,16 +1,21 @@
-# takesavenue
+# Takes Avenue
 
-A new Flutter project.
+A social platform for creating and sharing takes/opinions with friends. Users can challenge each other's takes, set punishments for losing, and earn points through engagement.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- 📱 Create and share takes with evidence (text/image/video)
+- 🤝 Challenge other users to agree/disagree
+- ⏱️ Set time duration for takes (1-7 days)
+- 🎯 Set punishments for losing takes
+- 👥 User profiles with points and activities
+- 💰 Wallet system for credits
+- 🏆 Leaderboard tracking
 
-A few resources to get you started if this is your first Flutter project:
+## Tech Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter for cross-platform mobile development
+- Firebase Authentication
+- Cloud Firestore for database
+- Firebase Storage for media
+- BLoC pattern for state management
